@@ -1,6 +1,6 @@
 
 import Directory from "../../components/directory/Directory.component";
-import './Homepage.style.css'
+import './Homepage.style.scss'
 
 const Homepage = () => {
   return (
