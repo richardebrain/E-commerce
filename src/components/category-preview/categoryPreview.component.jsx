@@ -12,7 +12,7 @@ const CategoryPreview = ({ items, title }) => {
           .map(({ id, ...otherCategoryProps }) => (
             <CategoryItem key={id} {...otherCategoryProps} />
           ))}
-      </div>
+      </div> 
     </div>
   );
 };
