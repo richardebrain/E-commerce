@@ -3,6 +3,7 @@ import {ReactComponent as Logo} from '../../assets/crown.svg';
 import {Link} from 'react-router-dom';
 import   './header.style.scss'
 
+
 const Header = () => {
     return (
         <div className='header'>
@@ -18,6 +19,9 @@ const Header = () => {
 
                 <Link className='option' to='/shop'>
                     CONTACT
+                </Link>
+                <Link className='option' to='/sign'>
+                    SIGN IN
                 </Link>
              </div>
 
