@@ -5,11 +5,7 @@ import ShopPage from './pages/Shop/shop.component';
 import Header from './components/header/header.component'
 import SignInAndOut from './pages/sign-in-and-sign-out/sign-in-and-sign-out.component';
 import React,{Component} from 'react';
-import {auth} from './firebase/firebase.utils'
-
-
-
-
+import {auth, createUserProfile} from './firebase/firebase.utils'
 
 
 class App extends  Component{
@@ -22,9 +18,10 @@ class App extends  Component{
   }
  unsubscribeFromAuth = null;
   componentDidMount(){
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user =>{
-      this.setState({currentUser: user});
-      console.log(user)
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user =>{
+      createUserProfile(user);
+      // this.setState({currentUser: user});
+      
     })
   }
   componentWillUnmount(){
