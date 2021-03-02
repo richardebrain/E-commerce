@@ -11,6 +11,7 @@ const Header = ({currentUser}) => {
         <Link to="/">
           <Logo className="logo" />
         </Link>
+        {/* <h2>welcome</h2>{currentUser.displayName}  */}
       </div>
       <div className="options">
         <Link className="option" to="/shop">

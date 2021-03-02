@@ -1,50 +1,59 @@
-import Homepage from './pages/homepage/Homepage.component'
-import './App.css';
-import {Route,Switch} from 'react-router-dom';
-import ShopPage from './pages/Shop/shop.component';
-import Header from './components/header/header.component'
-import SignInAndOut from './pages/sign-in-and-sign-out/sign-in-and-sign-out.component';
-import React,{Component} from 'react';
-import {auth, createUserProfile} from './firebase/firebase.utils'
+import Homepage from "./pages/homepage/Homepage.component";
+import "./App.css";
+import { Route, Switch } from "react-router-dom";
+import ShopPage from "./pages/Shop/shop.component";
+import Header from "./components/header/header.component";
+import SignInAndOut from "./pages/sign-in-and-sign-out/sign-in-and-sign-out.component";
+import React, { Component } from "react";
+import { auth, createUserProfile } from "./firebase/firebase.utils";
 
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      currentUser: null,
+    };
+  }
+  unsubscribeFromAuth = null;
+  componentDidMount() {
+      this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+       
+        if(userAuth){
+          const userRef = await createUserProfile(userAuth);
 
-class App extends  Component{
-  constructor(){
-    super()
-    this.state={
-      currentUser:null,
-    }
-  
+        
+          userRef.onSnapshot((snapShot) => {
+            this.setState(
+              {
+                currentUser: {
+                  id: snapShot.id,
+                  ...snapShot.data(),
+                },
+              }
+            );
+          });
+       
+      }else{
+        this.setState({ currentUser: userAuth });
+      }
+    });
+    
   }
- unsubscribeFromAuth = null;
-  componentDidMount(){
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user =>{
-      createUserProfile(user);
-      // this.setState({currentUser: user});
-      
-    })
-  }
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.unsubscribeFromAuth();
   }
   render() {
     return (
-      <div >
-      <Header currentUser={this.state.currentUser}/>
+      <div>
+        <Header currentUser={this.state.currentUser} />
         <Switch>
-  
-        <Route exact path='/' component={Homepage}/>
-        <Route exact path='/shop' component={ShopPage}/>
-        <Route exact path='/signin' component=  {SignInAndOut}/>
-        
+          <Route exact path="/" component={Homepage} />
+          <Route exact path="/shop" component={ShopPage} />
+          <Route exact path="/signin" component={SignInAndOut} />
         </Switch>
-        
-        
       </div>
     );
-   
   }
-  
 }
 
 export default App;
