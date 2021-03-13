@@ -13,6 +13,7 @@ const config = {
   measurementId: "G-WEXP7YE30C",
 };
 
+//this function is used to create a new user if it dosen't exist in the database
 export const createUserProfile = async (userAuth, additionalData) => {
   if (!userAuth) return;
   const userRef = firestore.doc(`users/${userAuth.uid}`);
