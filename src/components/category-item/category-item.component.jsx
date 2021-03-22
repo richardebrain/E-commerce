@@ -5,6 +5,7 @@ import { AddItems } from '../../Redux/cart/cart.action'
 import {connect }  from 'react-redux'
 
 
+
 const CategoryItem = ({item,addItems}) => {
     const {imageUrl,name,price} = item
     return (
